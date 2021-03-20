@@ -1,0 +1,76 @@
+<Schema name="Schema Version">
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Pnns">
+    <Hierarchy name="Pnns" visible="true" hasAll="true" primaryKey="id_pnns">
+      <Table name="dim_pnns">
+      </Table>
+      <Level name="pnns1" visible="true" column="pnns1" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="pnns2" visible="true" column="pnns2" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Contributeur">
+    <Hierarchy name="Contributeur" visible="true" hasAll="true" primaryKey="id_contributeur">
+      <Table name="dim_contributeur">
+      </Table>
+      <Level name="pseudo" visible="true" column="pseudo" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Date_creation">
+    <Hierarchy name="Date_creation" visible="true" hasAll="true" primaryKey="id_date_creation">
+      <Table name="dim_date_creation">
+      </Table>
+      <Level name="annee_creation" visible="true" column="annee_creation" type="Numeric" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="mois_creation" visible="true" column="mois_creation" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="nom_mois_creation" visible="true" column="nom_mois_creation" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="jour_creation" visible="true" column="jour_creation" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="date_complete_creation" visible="true" column="date_complete_creation" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Date_version">
+    <Hierarchy name="Date_version" visible="true" hasAll="true" primaryKey="id_date_version">
+      <Table name="dim_date_version">
+      </Table>
+      <Level name="annee_version" visible="true" column="annee_version" type="Numeric" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="mois_version" visible="true" column="mois_version" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="nom_mois_version" visible="true" column="nom_mois_version" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="jour_version" visible="true" column="jour_version" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="date_complete_version" visible="true" column="date_complete_version" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Nutrition">
+    <Hierarchy name="Nutrition" visible="true" hasAll="true">
+      <Table name="fait_version">
+      </Table>
+      <Level name="Nutrition_score" visible="true" column="nutrition_score_fr" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Cube name="Cube Version" visible="true" cache="true" enabled="true">
+    <Table name="fait_version">
+    </Table>
+    <DimensionUsage source="Pnns" name="Pnns" visible="true" foreignKey="id_pnns" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Contributeur" name="Contributeur" visible="true" foreignKey="id_contributeur" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Date_creation" name="Date_creation" visible="true" foreignKey="id_date_creation" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Date_version" name="Date_version" visible="true" foreignKey="id_date_version" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Nutrition" name="Nutrition_Score" visible="true" highCardinality="false">
+    </DimensionUsage>
+    <Measure name="nombre_version" column="id_contributeur" datatype="Numeric" aggregator="count" visible="true">
+    </Measure>
+  </Cube>
+</Schema>

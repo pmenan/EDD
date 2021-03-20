@@ -1,0 +1,60 @@
+<Schema name="Schema Produit">
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Pnns">
+    <Hierarchy name="Pnns" visible="true" hasAll="true" primaryKey="id_pnns">
+      <Table name="dim_pnns">
+      </Table>
+      <Level name="pnns1" visible="true" column="pnns1" ordinalColumn="id_pnns" type="String" internalType="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="pnns2" visible="true" column="pnns2" ordinalColumn="id_pnns" type="String" internalType="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Contributeur">
+    <Hierarchy name="Contributeur" visible="true" hasAll="true" primaryKey="id_contributeur">
+      <Table name="dim_contributeur">
+      </Table>
+      <Level name="pseudo" visible="true" column="pseudo" ordinalColumn="id_contributeur" type="String" internalType="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Date_creation">
+    <Hierarchy name="Date" visible="true" hasAll="true" primaryKey="id_date_creation">
+      <Table name="dim_date_creation">
+      </Table>
+      <Level name="annee_creation" visible="true" column="annee_creation" ordinalColumn="annee_creation" type="Numeric" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="mois_creation" visible="true" column="mois_creation" ordinalColumn="id_date_creation" type="Numeric" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="nom_mois_creation" visible="true" column="nom_mois_creation" ordinalColumn="id_date_creation" type="String" internalType="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="jour_creation" visible="true" column="jour_creation" ordinalColumn="id_date_creation" type="Numeric" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="date_complete_creation" visible="true" column="date_complete_creation" ordinalColumn="id_date_creation" type="Date" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Nutrition">
+    <Hierarchy name="Nutrition" visible="true" hasAll="true">
+      <Table name="fait_produit">
+      </Table>
+      <Level name="Nutrition_score" visible="true" column="nutrition_score_fr" type="Integer" internalType="int" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Cube name="Cube Produit" visible="true" cache="true" enabled="true">
+    <Table name="fait_produit">
+    </Table>
+    <DimensionUsage source="Pnns" name="Pnns" visible="true" foreignKey="id_pnns" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Contributeur" name="Contributeur" visible="true" foreignKey="id_contributeur" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Date_creation" name="Date_creation" visible="true" foreignKey="id_date_creation" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Nutrition" name="Nutrition_Score" visible="true" highCardinality="false">
+    </DimensionUsage>
+    <Measure name="nombre_contributeur" column="id_contributeur" datatype="Numeric" aggregator="distinct-count" visible="true">
+    </Measure>
+    <Measure name="nombre_produit" column="id_pnns" datatype="Numeric" aggregator="distinct-count" visible="true">
+    </Measure>
+  </Cube>
+</Schema>
